@@ -1,6 +1,6 @@
 import { eventBus } from "./eventBus";
 
-export function attachVirutalKeyboardListeners() {
+export function attachVirtualKeyboardListeners() {
   document.querySelectorAll(".keyboard-key").forEach((letterEl) => {
     letterEl.addEventListener("click", () => {
       const { key } = (letterEl as HTMLElement).dataset;

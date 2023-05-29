@@ -1,28 +1,47 @@
 import { attachKeyboardProcessor } from "./keyboardProcessor";
-import { setAttempt } from "./ui";
-import { attachVirutalKeyboardListeners } from "./virtualKeyboard";
+import { Game } from "./game";
+import { attachVirtualKeyboardListeners } from "./virtualKeyboard";
 import { attachPhysicalKeyboardListeners } from "./physicalKeyboard";
+import { setAttempt, setAttemptResult, setKeyboardState } from "./ui";
 
-console.log("init main.tsx");
+console.log("init main.ts");
 
-function onType(attempt: string) {
-  console.log("type", attempt);
-  setAttempt(attempt, 0);
-}
+const game = new Game({ keyboardState: {}, currentAttemptIndex: 0 });
 
-function onCommit(attempt: string) {
-  console.log("commit", attempt);
-}
-
-function onLettersLimitCallback() {
-  console.log("stop FUCKING WRITING U STUPID BITCH!");
-}
-
-attachKeyboardProcessor({
-  typeCallback: onType,
-  commitCallback: onCommit,
+attachPhysicalKeyboardListeners();
+attachVirtualKeyboardListeners();
+const deattachKeyboardProcessor = attachKeyboardProcessor({
+  typeCallback: onLetterType,
+  commitCallback: onEnter,
   lettersLimitCallback: onLettersLimitCallback,
 });
 
-attachPhysicalKeyboardListeners();
-attachVirutalKeyboardListeners();
+function onLettersLimitCallback() {
+  console.log("STOP FUCKING TYPING U FKING ASSHOLE");
+}
+
+function onLetterType(attempt: string) {
+  setAttempt(attempt, game.currentAttemptIndex);
+}
+
+function onEnter(attempt: string) {
+  const success = game.commitAttempt(attempt);
+  return { success };
+}
+
+game.on("attemptcommit", (event) => {
+  setAttemptResult(event.attemptIndex, event.attemptResult);
+  setKeyboardState(event.keyboardState);
+});
+
+game.on("notindictionary", () => console.log("DUMB! NO WORD IN DICTIONARY"));
+
+game.on("gamefail", () => {
+  console.log("DUMBASSS!");
+  deattachKeyboardProcessor();
+});
+
+game.on("gamewin", () => {
+  console.log("UR LUCKY, ASSHOLE");
+  deattachKeyboardProcessor();
+});
