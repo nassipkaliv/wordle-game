@@ -1,10 +1,28 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import { attachKeyboardProcessor } from "./keyboardProcessor";
+import { setAttempt } from "./ui";
+import { attachVirutalKeyboardListeners } from "./virtualKeyboard";
+import { attachPhysicalKeyboardListeners } from "./physicalKeyboard";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+console.log("init main.tsx");
+
+function onType(attempt: string) {
+  console.log("type", attempt);
+  setAttempt(attempt, 0);
+}
+
+function onCommit(attempt: string) {
+  console.log("commit", attempt);
+}
+
+function onLettersLimitCallback() {
+  console.log("stop FUCKING WRITING U STUPID BITCH!");
+}
+
+attachKeyboardProcessor({
+  typeCallback: onType,
+  commitCallback: onCommit,
+  lettersLimitCallback: onLettersLimitCallback,
+});
+
+attachPhysicalKeyboardListeners();
+attachVirutalKeyboardListeners();
