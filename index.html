@@ -1,120 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no"
-    />
-    <title>Wordle-Game</title>
-    <link href="/src/style.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
   </head>
   <body>
-    <div class="container">
-      <div class="wordle-header">
-        <div class="wordle-header__left"></div>
-        <h1 class="wordle-header-text">Wordle</h1>
-        <div class="wordle-header__right">
-          <button class="wordle-header__stats">📊</button>
-        </div>
-      </div>
-      <div class="wordle">
-        <div class="attempt">
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-        </div>
-        <div class="attempt">
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-        </div>
-        <div class="attempt">
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-        </div>
-        <div class="attempt">
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-        </div>
-        <div class="attempt">
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-        </div>
-        <div class="attempt">
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-          <div class="letter"><div class="letter-inner"></div></div>
-        </div>
-      </div>
-      <div id="keyboard" class="keyboard">
-        <div class="keyboard-row">
-          <button class="keyboard-key" data-key="й">й</button>
-          <button class="keyboard-key" data-key="ц">ц</button>
-          <button class="keyboard-key" data-key="у">у</button>
-          <button class="keyboard-key" data-key="к">к</button>
-          <button class="keyboard-key" data-key="е">е</button>
-          <button class="keyboard-key" data-key="н">н</button>
-          <button class="keyboard-key" data-key="г">г</button>
-          <button class="keyboard-key" data-key="ш">ш</button>
-          <button class="keyboard-key" data-key="щ">щ</button>
-          <button class="keyboard-key" data-key="з">з</button>
-          <button class="keyboard-key" data-key="х">х</button>
-          <button class="keyboard-key" data-key="ъ">ъ</button>
-        </div>
-        <div class="keyboard-row">
-          <button class="keyboard-key" data-key="ф">ф</button>
-          <button class="keyboard-key" data-key="ы">ы</button>
-          <button class="keyboard-key" data-key="в">в</button>
-          <button class="keyboard-key" data-key="а">а</button>
-          <button class="keyboard-key" data-key="п">п</button>
-          <button class="keyboard-key" data-key="р">р</button>
-          <button class="keyboard-key" data-key="о">о</button>
-          <button class="keyboard-key" data-key="л">л</button>
-          <button class="keyboard-key" data-key="д">д</button>
-          <button class="keyboard-key" data-key="ж">ж</button>
-          <button class="keyboard-key" data-key="э">э</button>
-        </div>
-        <div class="keyboard-row">
-          <button class="keyboard-key" data-key="Backspace">⬅️</button>
-          <button class="keyboard-key" data-key="ё">ё</button>
-          <button class="keyboard-key" data-key="я">я</button>
-          <button class="keyboard-key" data-key="ч">ч</button>
-          <button class="keyboard-key" data-key="с">с</button>
-          <button class="keyboard-key" data-key="м">м</button>
-          <button class="keyboard-key" data-key="и">и</button>
-          <button class="keyboard-key" data-key="т">т</button>
-          <button class="keyboard-key" data-key="ь">ь</button>
-          <button class="keyboard-key" data-key="б">б</button>
-          <button class="keyboard-key" data-key="ю">ю</button>
-          <button class="keyboard-key" data-key="Enter">✅</button>
-        </div>
-      </div>
-    </div>
-    <div id="endGameModal" class="modal-backdrop modal-hidden">
-      <div class="modal">
-        <div class="modal-content">
-          <div class="modal-header">Статистика</div>
-          <div class="modal-close">❌</div>
-          <p>blahblahblah</p>
-        </div>
-      </div>
-    </div>
-    <script type="module" src="/src/main.ts"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
