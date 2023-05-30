@@ -2,7 +2,14 @@ import { attachKeyboardProcessor } from "./keyboardProcessor";
 import { Game } from "./game";
 import { attachVirtualKeyboardListeners } from "./virtualKeyboard";
 import { attachPhysicalKeyboardListeners } from "./physicalKeyboard";
-import { setAttempt, setAttemptResult, setKeyboardState } from "./ui";
+import {
+  setAttempt,
+  setAttemptResult,
+  setKeyboardState,
+  rejectAttempt,
+  notify,
+} from "./ui";
+import * as modal from "./modal";
 
 console.log("init main.ts");
 
@@ -17,7 +24,7 @@ const deattachKeyboardProcessor = attachKeyboardProcessor({
 });
 
 function onLettersLimitCallback() {
-  console.log("STOP FUCKING TYPING U FKING ASSHOLE");
+  console.log("STOP FUCKING TYPING");
 }
 
 function onLetterType(attempt: string) {
@@ -34,14 +41,22 @@ game.on("attemptcommit", (event) => {
   setKeyboardState(event.keyboardState);
 });
 
-game.on("notindictionary", () => console.log("DUMB! NO WORD IN DICTIONARY"));
+game.on("notindictionary", (event) => {
+  notify("NO WORD");
+  rejectAttempt(event.attemptIndex);
+});
 
-game.on("gamefail", () => {
-  console.log("DUMBASSS!");
+game.on("gamefail", (event) => {
+  notify(event.solution);
   deattachKeyboardProcessor();
 });
 
-game.on("gamewin", () => {
-  console.log("UR LUCKY, ASSHOLE");
+game.on("gamewin", (event) => {
+  notify(
+    ["Genius!", "Gorgeous", "Great!!", "Norm!", "Poidet!"][
+      event.attemptIndex
+    ]
+  );
+  modal.showModal();
   deattachKeyboardProcessor();
 });
