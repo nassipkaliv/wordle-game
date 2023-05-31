@@ -6,7 +6,7 @@ import { render, screen, userEvent } from "./test/test-utils";
 describe("Simple working test", () => {
   test("the title is visible", () => {
     render(<App />);
-    expect(screen.getByText(/wordle/i)).toBeInTheDocument();
+    expect(screen.getByText(/nexdle/i)).toBeInTheDocument();
   });
 
   test("shows empty state", () => {
@@ -41,7 +41,20 @@ describe("Simple working test", () => {
     useStore.getState().newGame(Array(6).fill("grass"));
     render(<App />);
     expect(screen.getByText("Game Over!")).toBeInTheDocument();
-    userEvent.click(screen.getByText("New Game!"));
+    userEvent.click(screen.getByText("NEW GAME"));
     expect(document.querySelector("main")?.textContent).toEqual("");
+  });
+
+  test("able to see instructions modal", () => {
+    render(<App />);
+    userEvent.click(screen.getByTestId("instructions"));
+    expect(screen.getByText("HOW TO PLAY")).toBeInTheDocument();
+  });
+
+  test("able to close instructions modal", () => {
+    render(<App />);
+    userEvent.click(screen.getByTestId("instructions"));
+    userEvent.click(screen.getByTestId("close-instructions"));
+    expect(screen.queryByText("HOW TO PLAY")).toBeNull();
   });
 });

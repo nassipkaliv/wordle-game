@@ -3,7 +3,7 @@ import {
   computeGuess,
   getRandomWord,
   LetterState,
-  isValidWord,
+  isValidWord
 } from "./word-utils";
 
 describe("getRandomWord", () => {
@@ -50,6 +50,16 @@ describe("computeGuess", () => {
       LetterState.Miss,
       LetterState.Miss,
       LetterState.Match,
+      LetterState.Miss
+    ]);
+  });
+
+  test("if a letter is guessed multiple times and is in the answer multiple times", () => {
+    expect(computeGuess("reeds", "fever")).toEqual([
+      LetterState.Present,
+      LetterState.Match,
+      LetterState.Present,
+      LetterState.Miss,
       LetterState.Miss
     ]);
   });
