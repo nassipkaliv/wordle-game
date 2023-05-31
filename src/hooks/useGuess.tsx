@@ -1,19 +1,20 @@
-import { useEffect, useState, useRef } from "react";
-import { useStore } from "../storage";
+import { useState, useEffect } from "react";
 import { LETTER_LENGTH } from "../word-utils";
-import usePrevious from "./usePrevious";
 
-const useGuess = (): [string, React.Dispatch<React.SetStateAction<string>>] => {
-  const addGuess = useStore((s) => s.addGuess);
-  const [guess, setGuess] = useState("");
-  const previousGuess = usePrevious(guess);
+export function useGuess(): [
+  string,
+  React.Dispatch<React.SetStateAction<string>>,
+  (letter: string) => void
+] {
+  const guessState = useState("");
+  const [guess, setGuess] = guessState;
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    let letter = e.key;
-
+  const addGuessLetter = (letter: string) => {
     setGuess((currentGuess) => {
       const newGuess =
-        letter.length === 1 ? currentGuess + letter : currentGuess;
+        letter.length === 1 && currentGuess.length !== LETTER_LENGTH
+          ? currentGuess + letter
+          : currentGuess;
 
       switch (letter) {
         case "Backspace":
@@ -21,17 +22,21 @@ const useGuess = (): [string, React.Dispatch<React.SetStateAction<string>>] => {
 
         case "Enter":
           if (newGuess.length === LETTER_LENGTH) {
-            addGuess(newGuess);
             return "";
           }
       }
 
-      if (currentGuess.length === LETTER_LENGTH) {
-        return currentGuess;
+      if (newGuess.length === LETTER_LENGTH) {
+        return newGuess;
       }
 
       return newGuess;
     });
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    let letter = e.key;
+    addGuessLetter(letter);
   };
 
   useEffect(() => {
@@ -40,14 +45,5 @@ const useGuess = (): [string, React.Dispatch<React.SetStateAction<string>>] => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-
-  useEffect(() => {
-    if (guess.length === 0 && previousGuess?.length === LETTER_LENGTH) {
-      addGuess(previousGuess);
-    }
-  }, [guess]);
-
-  return [guess, setGuess];
-};
-
-export default useGuess;
+  return [guess, setGuess, addGuessLetter];
+}
