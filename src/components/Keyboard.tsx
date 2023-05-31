@@ -4,14 +4,14 @@ import { LetterState } from "../word-utils";
 interface KeyboardProps {
   onClick: (key: string) => void;
 }
-export default function Keyboard({ onClick: onClickProps} : KeyboardProps) {
+export default function Keyboard({ onClick: onClickProps }: KeyboardProps) {
   const keyboardLetterState = useStore((s) => s.keyboardLetterState);
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { textContent, innerHTML } = e.currentTarget;
 
     let returnProps = textContent!;
-    if(textContent !== innerHTML) {
+    if (textContent !== innerHTML) {
       returnProps = "Backspace";
     }
 
@@ -19,41 +19,44 @@ export default function Keyboard({ onClick: onClickProps} : KeyboardProps) {
   };
   return (
     <div className={`flex flex-col`}>
-      {keyboardKeys.map((KeyboardRow, rowIndex) => {
-        <div key={rowIndex} className="flex justify-center my-2 mb-2 sapce-x-1">
+      {keyboardKeys.map((keyboardRow, rowIndex) => (
+        <div
+          key={rowIndex}
+          className="flex justify-center my-2 mb-2 space-x-1 text-white"
+        >
           {keyboardRow.map((key, index) => {
             let styles = "rounded font-bold uppercase flex-1 py-2";
-            
+
             const letterState = keyStateStyles[keyboardLetterState[key]];
 
-            if(letterState) {
-              styles += " text-white px-1" + letterState;
-            } else if(key !== "") {
-              styles += " bg-gray-400 ";
+            if (letterState) {
+              styles += " text-white px-1 " + letterState;
+            } else if (key !== "") {
+              styles += " bg-gray-600";
             }
 
-            if(key === "") {
-              styles += " pointer-events-none ";
+            if (key === "") {
+              styles += " pointer-events-none";
             } else {
-              styles += "px-1";
+              styles += " px-1";
             }
 
             return (
               <button onClick={onClick} key={key + index} className={styles}>
-                {key === "delete" ? backspace: key}
+                {key === "delete" ? backspace : key}
               </button>
             );
           })}
         </div>
-      })}
+      ))}
     </div>
   );
 }
 
 const keyStateStyles = {
-  [LetterState.Miss]: "bg-gray-600",
+  [LetterState.Miss]: "bg-gray-800",
   [LetterState.Present]: "bg-yellow-500",
-  [LetterState.Match]: "bg-green-500",
+  [LetterState.Match]: "bg-green-500"
 };
 
 const keyboardKeys = [

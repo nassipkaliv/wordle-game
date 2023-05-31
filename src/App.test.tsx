@@ -34,14 +34,14 @@ describe("Simple working test", () => {
     const answer = useStore.getState().answer;
     useStore.getState().addGuess(answer);
     render(<App />);
-    expect(screen.getByText("Game Over!")).toBeInTheDocument();
+    expect(screen.getByText("You Won!")).toBeInTheDocument();
   });
 
   test("able to start new game", () => {
     useStore.getState().newGame(Array(6).fill("grass"));
     render(<App />);
     expect(screen.getByText("Game Over!")).toBeInTheDocument();
-    userEvent.click(screen.getByText("New Game"));
+    userEvent.click(screen.getByText("New Game!"));
     expect(document.querySelector("main")?.textContent).toEqual("");
   });
 });
