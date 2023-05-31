@@ -1,4 +1,3 @@
-/* eslint-disable no-fallthrough */
 import create from "zustand";
 import { persist } from "zustand/middleware";
 import { computeGuess, getRandomWord, LetterState } from "./word-utils";
@@ -39,12 +38,15 @@ export const useStore = create<StoreState>(
           switch (currentLetterState) {
             case LetterState.Match:
               break;
-
+          
             case LetterState.Present:
               if (r === LetterState.Miss) {
                 break;
               }
-
+              // Fallthrough is prevented by the above `break` statement
+              // Additional logic for LetterState.Present case here
+              break;
+          
             default:
               keyboardLetterState[resultGuessLetter] = r;
               break;
