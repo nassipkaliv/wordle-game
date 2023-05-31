@@ -1,4 +1,5 @@
-import create from "zustand";
+/* eslint-disable no-fallthrough */
+import { create }  from "zustand";
 import { persist } from "zustand/middleware";
 import { computeGuess, getRandomWord, LetterState } from "./word-utils";
 
@@ -13,8 +14,8 @@ interface StoreState {
   answer: string;
   rows: GuessRow[];
   gameState: "playing" | "won" | "lost";
-  addGuess: (guess: string) => void;
   keyboardLetterState: { [letter: string]: LetterState };
+  addGuess: (guess: string) => void;
   newGame: (initialGuess?: string[]) => void;
 }
 
@@ -29,24 +30,27 @@ export const useStore = create<StoreState>(
         const rows = [...get().rows, { guess, result }];
 
         const keyboardLetterState = get().keyboardLetterState;
+
         result.forEach((r, index) => {
           const resultGuessLetter = guess[index];
 
           const currentLetterState = keyboardLetterState[resultGuessLetter];
 
-          switch(currentLetterState) {
+          switch (currentLetterState) {
             case LetterState.Match:
               break;
+
             case LetterState.Present:
-              if(r === LetterState.Miss) {
+              if (r === LetterState.Miss) {
                 break;
               }
+
             default:
               keyboardLetterState[resultGuessLetter] = r;
               break;
           }
         });
-        
+
         set(() => ({
           rows,
           keyboardLetterState: keyboardLetterState,
@@ -77,7 +81,7 @@ export const useStore = create<StoreState>(
       };
     },
     {
-      name: "wordle"
+      name: "wordle" 
     }
   )
 );
