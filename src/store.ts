@@ -1,6 +1,5 @@
-/* eslint-disable no-fallthrough */
-import { create }  from "zustand";
-import { persist } from "zustand/middleware";
+import  create   from "zustand";
+import { persist }   from "zustand/middleware";
 import { computeGuess, getRandomWord, LetterState } from "./word-utils";
 
 export const GUESS_LENGTH = 6;
@@ -21,7 +20,7 @@ interface StoreState {
 
 export const useStore = create<StoreState>(
   persist(
-    (set, get) => {
+    (set:any, get:any) => {
       const addGuess = (guess: string) => {
         const result = computeGuess(guess, get().answer);
 
@@ -45,6 +44,7 @@ export const useStore = create<StoreState>(
                 break;
               }
 
+            // eslint-disable-next-line no-fallthrough
             default:
               keyboardLetterState[resultGuessLetter] = r;
               break;
