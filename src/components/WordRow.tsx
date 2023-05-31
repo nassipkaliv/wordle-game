@@ -1,22 +1,20 @@
-import { useStore } from "../storage";
-import { computeGuess, LetterState, LETTER_LENGTH } from "../word-utils";
+import { LetterState, LETTER_LENGTH } from "../word-utils";
 
 interface WordRowProps {
   letters: string;
+  result?: LetterState[];
 }
 
-const WordRow = ({ letters: lettersProp = "" }: WordRowProps) => {
-  const answer = useStore((state) => state.answer);
+const WordRow = ({ letters: lettersProp = "", result = [] }: WordRowProps) => {
   const lettersRemaining = LETTER_LENGTH - lettersProp.length;
   const letters = lettersProp
     .split("")
     .concat(Array(lettersRemaining).fill(""));
 
-  const guessStates = computeGuess(lettersProp, answer);
   return (
     <div className="grid grid-cols-5 gap-4 bg-green">
       {letters.map((char, index) => (
-        <CharacterBox key={index} value={char} state={guessStates[index]} />
+        <CharacterBox key={index} value={char} state={result[index]} />
       ))}
     </div>
   );
@@ -38,7 +36,7 @@ const CharacterBox = ({ value, state }: CharacterBoxProps) => {
 
   return (
     <span
-      className={`inline-block p-4 text-2xl font-bold text-center uppercase border-2 border-gray-500 ${stateStyles}`}
+      className={`inline-block p-4 text-2xl font-bold text-center before:inline-block before:content-['_'] uppercase border-2 border-gray-500 ${stateStyles}`}
     >
       {value}
     </span>
