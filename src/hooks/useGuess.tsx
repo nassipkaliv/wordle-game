@@ -35,7 +35,7 @@ export function useGuess(): [
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    let letter = e.key;
+    const letter = e.key;
     addGuessLetter(letter);
   };
 
