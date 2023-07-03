@@ -1,1 +1,2 @@
-# wordle-game with vite
+WORDLE
+React/TypeScript/Tailwind/Vite
