@@ -1,2 +1,2 @@
-<h1>WORDLE</h1>
+<h1>WORDLE GAME</h1>
 React/TypeScript/Tailwind/Vite
