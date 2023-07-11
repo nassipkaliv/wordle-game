@@ -1,2 +1,2 @@
 <h1>WORDLE GAME</h1>
-React/TypeScript/Tailwind/Vite
+React/TypeScript/TailwindCSS/Vite
